@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: theme.breakpoints.width('xl'),
   },
   main: {
-    padding: '162px 10px',
+    padding: '170px 10px',
     maxWidth: theme.breakpoints.width('lg'),
     minWidth: theme.breakpoints.width('sm'),
     // border: '1px solid #f00',

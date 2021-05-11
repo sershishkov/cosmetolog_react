@@ -128,20 +128,20 @@ const KeywordList = () => {
     />
   );
 
-  // if (state__KEYWORD.loading__KEYWORD) {
-  //   return (
-  //     <Grid
-  //       container
-  //       justify='center'
-  //       alignItems='center'
-  //       className={classes.spinnerContainer}
-  //     >
-  //       <Grid item className={classes.spinnerItem}>
-  //         <CircularProgress />
-  //       </Grid>
-  //     </Grid>
-  //   );
-  // }
+  if (state__KEYWORD.loading__KEYWORD) {
+    return (
+      <Grid
+        container
+        justify='center'
+        alignItems='center'
+        className={classes.spinnerContainer}
+      >
+        <Grid item className={classes.spinnerItem}>
+          <CircularProgress />
+        </Grid>
+      </Grid>
+    );
+  }
 
   return (
     <Grid container className={classes.root} direction='column'>

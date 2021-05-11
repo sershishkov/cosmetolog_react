@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState, useRef } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import JoditEditor from 'jodit-react';
+// import JoditEditor from 'jodit-react';
 
 import { setNameOfPage } from '../../../reduxStore/actions/nameOfPage';
 import { addOne__FAQ } from '../../../reduxStore/actions/admin/faq';
@@ -50,15 +50,12 @@ const FAQ__Add = () => {
   const state__nameOfPage = useSelector((state) => state.nameOfPage.pageName);
   const state__KEYWORD = useSelector((state) => state.keyword);
   const history = useHistory();
-  const editorRef = useRef(null);
-  const [content, setContent] = useState('');
+  // const editorRef = useRef(null);
 
-  const configEditor = {
-    // all options from https://xdsoft.net/jodit/doc/
-    readonly: false,
-  };
-
-  console.log(content);
+  // const configEditor = {
+  //   // all options from https://xdsoft.net/jodit/doc/
+  //   readonly: false,
+  // };
 
   const [formData, setFormData] = useState({
     metaTitle: '',
@@ -67,19 +64,15 @@ const FAQ__Add = () => {
     questionText: '',
     answerText: '',
   });
+  // const [answerText, setAnswerText] = useState('');
 
   const [metaTitle__Helper, set__metaTitle__Helper] = useState('');
   const [metaDescription__Helper, set__metaDescription__Helper] = useState('');
   const [questionText__Helper, set__questionText__Helper] = useState('');
   const [answerText__Helper, set__answerText__Helper] = useState('');
 
-  const {
-    metaTitle,
-    metaDescription,
-    keyWords,
-    questionText,
-    answerText,
-  } = formData;
+  const { metaTitle, metaDescription, keyWords, questionText, answerText } =
+    formData;
 
   const clearFormData = () => {
     setFormData({
@@ -89,6 +82,7 @@ const FAQ__Add = () => {
       questionText: '',
       answerText: '',
     });
+    // setAnswerText('');
   };
   useEffect(() => {
     dispatch(setNameOfPage('Добавить вопрос'));
@@ -105,7 +99,7 @@ const FAQ__Add = () => {
         answerText
       )
     );
-
+    // console.log(formData);
     clearFormData();
     history.goBack();
   };
@@ -233,7 +227,6 @@ const FAQ__Add = () => {
           input={<Input />}
           renderValue={(selected) => (
             <div className={classes.chips}>
-              {/* {console.log(selected)} */}
               {selected &&
                 selected.length > 0 &&
                 state__KEYWORD.array__KEYWORD &&
@@ -287,18 +280,18 @@ const FAQ__Add = () => {
           onChange={(e) => onChangeHandler(e)}
         />
       </Grid>
-      <Grid item className={`${classes.item} ${classes.editorWrap}`}>
+      {/* <Grid item className={`${classes.item} ${classes.editorWrap}`}>
         <JoditEditor
           // id='answerText'
           // name='answerText'
           ref={editorRef}
-          value={content}
+          value={answerText ? answerText : ''}
           config={configEditor}
-          onBlur={(newContent) => setContent(newContent)}
+          onBlur={(newContent) => setAnswerText(newContent)}
           // preferred to use only this option to update the content for performance reasons
           // onChange={(newContent) => setContent(newContent)}
         />
-      </Grid>
+      </Grid> */}
 
       <Grid item className={classes.item}>
         <Button
@@ -307,7 +300,6 @@ const FAQ__Add = () => {
             !metaDescription ||
             (keyWords && keyWords.length === 0) ||
             !questionText ||
-            !answerText ||
             !answerText ||
             metaTitle__Helper.length !== 0 ||
             metaDescription__Helper.length !== 0 ||

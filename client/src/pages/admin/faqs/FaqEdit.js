@@ -66,13 +66,8 @@ const FAQ__Edit = () => {
   const [questionText__Helper, set__questionText__Helper] = useState('');
   const [answerText__Helper, set__answerText__Helper] = useState('');
 
-  const {
-    metaTitle,
-    metaDescription,
-    keyWords,
-    questionText,
-    answerText,
-  } = formData;
+  const { metaTitle, metaDescription, keyWords, questionText, answerText } =
+    formData;
 
   const clearFormData = () => {
     setFormData({

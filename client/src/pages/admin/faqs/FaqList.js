@@ -52,7 +52,7 @@ const FaqList = () => {
             answerText: item.answerText,
 
             edit: (
-              <IconButton component={Link} href={`/admin//faqs/${item._id}`}>
+              <IconButton component={Link} href={`/admin/faqs/${item._id}`}>
                 <EditIcon color='primary' />
               </IconButton>
             ),
