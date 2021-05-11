@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Model__Review = new mongoose.Schema({
   reviewText: {
@@ -8,14 +8,10 @@ const Model__Review = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  serviceBelongs: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Service',
+  },
 });
 
-let Export__Review;
-
-if (mongoose.models.Review) {
-  Export__Review = mongoose.model('Review');
-} else {
-  Export__Review = mongoose.model('Review', Model__Review);
-}
-
-export default Export__Review;
+module.exports = mongoose.model('Review', Model__Review);

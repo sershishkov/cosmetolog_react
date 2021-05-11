@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Model__Procedure = new mongoose.Schema({
   metaTitle: {
@@ -7,10 +7,18 @@ const Model__Procedure = new mongoose.Schema({
   metaDescription: {
     type: String,
   },
-  keyWords: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'KeyWord',
-  },
+  keyWords: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'KeyWord',
+    },
+  ],
+  drugs: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Drug',
+    },
+  ],
   header_H1: { type: String },
   header_H2: { type: String },
   header_H3: { type: String },
@@ -32,12 +40,14 @@ const Model__Procedure = new mongoose.Schema({
   },
 });
 
-let Export__Procedure;
+module.exports = mongoose.model('Procedure', Model__Procedure);
 
-if (mongoose.models.Procedure) {
-  Export__Procedure = mongoose.model('Procedure');
-} else {
-  Export__Procedure = mongoose.model('Procedure', Model__Procedure);
-}
+// let Export__Procedure;
 
-export default Export__Procedure;
+// if (mongoose.models.Procedure) {
+//   Export__Procedure = mongoose.model('Procedure');
+// } else {
+//   Export__Procedure = mongoose.model('Procedure', Model__Procedure);
+// }
+
+// export default Export__Procedure;

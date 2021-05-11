@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Model__Service = new mongoose.Schema({
   metaTitle: {
@@ -7,10 +7,13 @@ const Model__Service = new mongoose.Schema({
   metaDescription: {
     type: String,
   },
-  keyWords: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'KeyWord',
-  },
+  keyWords: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'KeyWord',
+    },
+  ],
+
   imageUrl: {
     type: String,
     // required: true,
@@ -25,8 +28,13 @@ const Model__Service = new mongoose.Schema({
   timing_H3: { type: String },
   timing: { type: String },
 
-  proceduresHeader_H3: { type: String },
-  procedures: { type: [mongoose.Schema.Types.ObjectId], ref: 'Procedure' },
+  procedures: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Procedure',
+    },
+  ],
+
   serviceHeader_H2: { type: String },
   serviceDescription: { type: String },
   serviceAdvantageHeader_H2: { type: String },
@@ -35,8 +43,6 @@ const Model__Service = new mongoose.Schema({
   servicePreparationDescription: { type: String },
   recoveryAfterServiceHeader_H2: { type: String },
   recoveryAfterServiceDescription: { type: String },
-  drugUsedHeader_H2: { type: String },
-  drugUsedDescription: { type: String },
   serviceResultHeader_H2: { type: String },
   serviceResultDescription: { type: String },
   priceHeader_H2: { type: String },
@@ -52,12 +58,13 @@ const Model__Service = new mongoose.Schema({
   },
 });
 
-let Export__Service;
+module.exports = mongoose.model('Service', Model__Service);
+// let Export__Service;
 
-if (mongoose.models.Service) {
-  Export__Service = mongoose.model('Service');
-} else {
-  Export__Service = mongoose.model('Service', Model__Service);
-}
+// if (mongoose.models.Service) {
+//   Export__Service = mongoose.model('Service');
+// } else {
+//   Export__Service = mongoose.model('Service', Model__Service);
+// }
 
-export default Export__Service;
+// export default Export__Service;

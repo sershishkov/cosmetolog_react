@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Model__Comment = new mongoose.Schema({
   commentText: {
@@ -14,12 +14,4 @@ const Model__Comment = new mongoose.Schema({
   },
 });
 
-let Export__Comment;
-
-if (mongoose.models.Comment) {
-  Export__Comment = mongoose.model('Comment');
-} else {
-  Export__Comment = mongoose.model('Comment', Model__Comment);
-}
-
-export default Export__Comment;
+module.exports = mongoose.model('Comment', Model__Comment);

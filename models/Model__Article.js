@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const Model__Article = new mongoose.Schema({
   metaTitle: {
@@ -7,10 +7,12 @@ const Model__Article = new mongoose.Schema({
   metaDescription: {
     type: String,
   },
-  keyWords: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'KeyWord',
-  },
+  keyWords: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'KeyWord',
+    },
+  ],
   header_H1: { type: String },
   header_H2: { type: String },
   header_H3: { type: String },
@@ -32,12 +34,4 @@ const Model__Article = new mongoose.Schema({
   },
 });
 
-let Export__Article;
-
-if (mongoose.models.Article) {
-  Export__Article = mongoose.model('Article');
-} else {
-  Export__Article = mongoose.model('Article', Model__Article);
-}
-
-export default Export__Article;
+module.exports = mongoose.model('Article', Model__Article);
