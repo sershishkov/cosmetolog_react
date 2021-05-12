@@ -34,16 +34,22 @@ exports.resizePhoto = asyncHandler(async (req, res, next) => {
 
   if (req.file.size > 2000000) {
     await sharp(req.file.buffer)
-      // .resize(500, 500)
+      .resize({
+        fit: sharp.fit.contain,
+        width: 600,
+      })
       .toFormat('jpeg')
       .jpeg({ quality: 50 })
-      .toFile(`./uploads/${req.file.filename}`);
+      .toFile(`uploads/${req.file.filename}`);
   } else {
     await sharp(req.file.buffer)
-      // .resize(500, 500)
+      .resize({
+        fit: sharp.fit.contain,
+        width: 600,
+      })
       .toFormat('jpeg')
       .jpeg({ quality: 100 })
-      .toFile(`./uploads/${req.file.filename}`);
+      .toFile(`uploads/${req.file.filename}`);
   }
 
   next();
@@ -64,6 +70,17 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
     header_H4,
     imageAlt,
   } = req.body;
+  // console.log(
+  //   req.file,
+  //   metaTitle,
+  //   metaDescription,
+  //   keyWords,
+  //   header_H1,
+  //   header_H2,
+  //   header_H3,
+  //   header_H4,
+  //   imageAlt
+  // );
 
   if (
     !metaTitle ||
@@ -97,7 +114,7 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
       header_H3,
       header_H4,
       imageAlt,
-      imageUrl: `./uploads/${req.file.filename}`,
+      imageUrl: `/uploads/${req.file.filename}`,
     });
 
     await new__Article.save();
@@ -146,6 +163,7 @@ exports.update__Article = asyncHandler(async (req, res, next) => {
     !imageAlt ||
     imageAlt.trim() === '' ||
     !id
+    // !req.file
   ) {
     return next(new ErrorResponse('Не переданы значения', 400));
   }
@@ -163,14 +181,18 @@ exports.update__Article = asyncHandler(async (req, res, next) => {
   };
 
   try {
+    // fs.readdir('./uploads/', (err, files) => {
+    //   files.forEach((file) => {
+    //     console.log(file);
+    //   });
+    // });
+
     const oldObj = await Model__Article.findById(req.params.id);
     if (req.file) {
-      fs.unlink(`${oldObj.imageUrl}`, (err) => {
-        console.log(err);
+      fs.unlink(`.${oldObj.imageUrl}`, (err) => {
+        console.log('187', err);
       });
-      new__Article.imageUrl = `./uploads/${req.file.filename}`;
-    } else {
-      new__Article.imageUrl = oldObj.imageUrl;
+      new__Article.imageUrl = `/uploads/${req.file.filename}`;
     }
 
     const updated__Article = await Model__Article.findByIdAndUpdate(
@@ -277,8 +299,8 @@ exports.delete__Article = asyncHandler(async (req, res, next) => {
       return;
     }
 
-    fs.unlink(`${one__Article.imageUrl}`, (err) => {
-      console.log(err);
+    fs.unlink(`.${one__Article.imageUrl}`, (err) => {
+      console.log('297', err);
     });
 
     res.status(200).json({

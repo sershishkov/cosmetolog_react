@@ -22,6 +22,9 @@ const KeywordList = lazy(() => import('./pages/admin/keywords/KeywordList'));
 const FaqAdd = lazy(() => import('./pages/admin/faqs/FaqAdd'));
 const FaqEdit = lazy(() => import('./pages/admin/faqs/FaqEdit'));
 const FaqList = lazy(() => import('./pages/admin/faqs/FaqList'));
+const ArticleAdd = lazy(() => import('./pages/admin/articles/ArticleAdd'));
+const ArticleEdit = lazy(() => import('./pages/admin/articles/ArticleEdit'));
+const ArticleList = lazy(() => import('./pages/admin/articles/ArticleList'));
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -57,6 +60,10 @@ function App() {
             <Route exact path='/admin/faqs/add' component={FaqAdd} />
             <Route exact path='/admin/faqs/:id' component={FaqEdit} />
             <Route exact path='/admin/faqs' component={FaqList} />
+
+            <Route exact path='/admin/articles/add' component={ArticleAdd} />
+            <Route exact path='/admin/articles/:id' component={ArticleEdit} />
+            <Route exact path='/admin/articles' component={ArticleList} />
             <Route path='*' component={FourOFour} />
           </Switch>
         </Suspense>

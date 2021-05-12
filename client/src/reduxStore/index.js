@@ -6,6 +6,7 @@ import auth from './reducers/user/auth';
 
 import keyword from './reducers/admin/keyword';
 import faq from './reducers/admin/faq';
+import article from './reducers/admin/article';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
 
     keyword,
     faq,
+    article,
   },
 });
 
