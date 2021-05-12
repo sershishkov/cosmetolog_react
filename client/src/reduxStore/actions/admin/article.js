@@ -14,7 +14,8 @@ export const addOne__ARTICLE =
     header_H2,
     header_H3,
     header_H4,
-    imageAlt
+    imageAlt,
+    history
   ) =>
   async (dispatch) => {
     const photoFormData = new FormData();
@@ -42,8 +43,9 @@ export const addOne__ARTICLE =
       );
 
       dispatch(ARTICLE__Actions.add_one__ARTICLE(data.data));
-
+      dispatch(setAlert('Добавлено успешно', 'success', 2500));
       dispatch(getAll__ARTICLE());
+      history.goBack();
     } catch (err) {
       const error = err.response.data.error;
       if (error) {
@@ -63,7 +65,8 @@ export const updateOne__ARTICLE =
     header_H3,
     header_H4,
     imageAlt,
-    id__ARTICLE
+    id__ARTICLE,
+    history
   ) =>
   async (dispatch) => {
     // console.log(
@@ -103,8 +106,9 @@ export const updateOne__ARTICLE =
       );
 
       dispatch(ARTICLE__Actions.add_one__ARTICLE(data.data));
-
+      dispatch(setAlert('Обновлено успешно', 'success', 2500));
       dispatch(getAll__ARTICLE());
+      history.goBack();
     } catch (err) {
       const error = err.response.data.error;
       if (error) {
@@ -146,6 +150,7 @@ export const deleteOne__ARTICLE = (id__ARTICLE) => async (dispatch) => {
     await axios.delete(`/api/admin/articles/${id__ARTICLE}`);
 
     dispatch(ARTICLE__Actions.delete_one__ARTICLE(id__ARTICLE));
+    dispatch(setAlert('Удалено успешно', 'success', 2500));
     dispatch(getAll__ARTICLE());
   } catch (err) {
     const error = err.response.data.error;

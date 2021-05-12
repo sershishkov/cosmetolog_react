@@ -158,11 +158,11 @@ const ArticleEdit = () => {
           : '',
       });
 
-      // setPreviewUrl(
-      //   state__ARTICLE.one__ARTICLE.imageUrl
-      //     ? state__ARTICLE.one__ARTICLE.imageUrl
-      //     : ''
-      // );
+      setPreviewUrl(
+        state__ARTICLE.one__ARTICLE.imageUrl
+          ? state__ARTICLE.one__ARTICLE.imageUrl
+          : ''
+      );
     }
   }, [state__ARTICLE.one__ARTICLE]);
   // console.log(keyWords);
@@ -178,7 +178,8 @@ const ArticleEdit = () => {
         header_H3,
         header_H4,
         imageAlt,
-        id
+        id,
+        history
       )
     );
 

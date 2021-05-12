@@ -124,7 +124,8 @@ const ArticleAdd = () => {
         header_H2,
         header_H3,
         header_H4,
-        imageAlt
+        imageAlt,
+        history
       )
     );
 
@@ -208,13 +209,13 @@ const ArticleAdd = () => {
   const pickedHandler = (e) => {
     const file = e.target.files[0];
     if (file && window.FileReader) {
-      setNewPhoto(file);
       const fileReader = new FileReader();
 
       fileReader.onload = () => {
         setPreviewUrl(fileReader.result);
       };
       fileReader.readAsDataURL(file);
+      setNewPhoto(file);
     }
   };
 
