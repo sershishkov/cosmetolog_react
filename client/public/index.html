@@ -24,7 +24,16 @@
     /> -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="script-src   'unsafe-inline' 'sha256-OBJU2JhQEWTeAprGq8k9mAMDzNjouf4mg+TBrc61mnE='"
+      content=" connect-src *; script-src *; object-src *;"
+    />
+
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content=" connect-src *; script-src *; object-src *;"
+    />
+    <meta
+      http-equiv="X-Webkit-CSP"
+      content=" connect-src *; script-src 'unsafe-inline' 'unsafe-eval' *; object-src *;"
     />
     <!--
       manifest.json provides metadata used when your web app is installed on a
