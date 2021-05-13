@@ -96,12 +96,13 @@ const FAQ__Add = () => {
         metaDescription,
         keyWords,
         questionText,
-        answerText
+        answerText,
+        history
       )
     );
     // console.log(formData);
     clearFormData();
-    history.goBack();
+    // history.goBack();
   };
 
   const onChangeHandler = (event) => {

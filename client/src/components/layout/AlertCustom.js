@@ -6,9 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: 'auto',
+    position: 'fixed',
+    // margin: 'auto',
+    left: 'calc(50% - 100px)',
+    top: 30,
     width: 400,
     fontSize: '2rem',
+    zIndex: 1501,
   },
 }));
 
@@ -25,7 +29,8 @@ const AlertCustom = () => {
             <Alert
               key={alert.id}
               severity={alert.alertType}
-              className={classes.root}
+              className={`${classes.root} `}
+              // style={{ top: alert.top }}
             >
               {alert.msg}
             </Alert>

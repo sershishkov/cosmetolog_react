@@ -48,10 +48,10 @@ const KeywordAdd = () => {
   }, [dispatch]);
 
   const onSubmit = () => {
-    dispatch(addOne__KEYWORD(keyWord_text));
+    dispatch(addOne__KEYWORD(keyWord_text, history));
 
     clearFormData();
-    history.goBack();
+    // history.goBack();
   };
 
   const onChangeHandler = (event) => {

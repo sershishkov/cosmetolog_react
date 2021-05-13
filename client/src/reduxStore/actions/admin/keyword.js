@@ -4,7 +4,7 @@ import { setAlert } from '../../actions/alert';
 
 import { KEYWORD__Actions } from '../../reducers/admin/keyword';
 
-export const addOne__KEYWORD = (keyWord_text) => async (dispatch) => {
+export const addOne__KEYWORD = (keyWord_text, history) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -19,8 +19,9 @@ export const addOne__KEYWORD = (keyWord_text) => async (dispatch) => {
     const { data } = await axios.post(`/api/admin/keywords`, body, config);
 
     dispatch(KEYWORD__Actions.add_one__KEYWORD(data.data));
-
+    dispatch(setAlert('Добавлено успешно', 'success', 2500));
     dispatch(getAll__KEYWORD());
+    history.goBack();
   } catch (err) {
     const error = err.response.data.error;
     if (error) {
@@ -29,36 +30,36 @@ export const addOne__KEYWORD = (keyWord_text) => async (dispatch) => {
   }
 };
 
-export const updateOne__KEYWORD = (keyWord_text, id__KEYWORD) => async (
-  dispatch
-) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+export const updateOne__KEYWORD =
+  (keyWord_text, id__KEYWORD, history) => async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({
+      keyWord_text,
+    });
+
+    try {
+      const { data } = await axios.put(
+        `/api/admin/keywords/${id__KEYWORD}`,
+        body,
+        config
+      );
+
+      dispatch(KEYWORD__Actions.add_one__KEYWORD(data.data));
+      dispatch(setAlert('Обновлено успешно', 'success', 2500));
+      dispatch(getAll__KEYWORD());
+      history.goBack();
+    } catch (err) {
+      const error = err.response.data.error;
+      if (error) {
+        dispatch(setAlert(error, 'error', 2500));
+      }
+    }
   };
-
-  const body = JSON.stringify({
-    keyWord_text,
-  });
-
-  try {
-    const { data } = await axios.put(
-      `/api/admin/keywords/${id__KEYWORD}`,
-      body,
-      config
-    );
-
-    dispatch(KEYWORD__Actions.add_one__KEYWORD(data.data));
-
-    dispatch(getAll__KEYWORD());
-  } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'error', 2500));
-    }
-  }
-};
 
 export const getAll__KEYWORD = () => async (dispatch) => {
   try {

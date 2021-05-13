@@ -118,12 +118,13 @@ const FAQ__Edit = () => {
         keyWords,
         questionText,
         answerText,
-        id
+        id,
+        history
       )
     );
 
     clearFormData();
-    history.goBack();
+    // history.goBack();
   };
 
   const onChangeHandler = (event) => {

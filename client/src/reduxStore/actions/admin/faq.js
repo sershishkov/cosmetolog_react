@@ -4,80 +4,81 @@ import { setAlert } from '../../actions/alert';
 
 import { FAQ__Actions } from '../../reducers/admin/faq';
 
-export const addOne__FAQ = (
-  metaTitle,
-  metaDescription,
-  keyWords,
-  questionText,
-  answerText
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+export const addOne__FAQ =
+  (metaTitle, metaDescription, keyWords, questionText, answerText, history) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({
+      metaTitle,
+      metaDescription,
+      keyWords,
+      questionText,
+      answerText,
+    });
+
+    try {
+      const { data } = await axios.post(`/api/admin/faqs`, body, config);
+
+      dispatch(FAQ__Actions.add_one__FAQ(data.data));
+      dispatch(setAlert('Добавлено успешно', 'success', 2500));
+      dispatch(getAll__FAQ());
+      history.goBack();
+    } catch (err) {
+      const error = err.response.data.error;
+      if (error) {
+        dispatch(setAlert(error, 'error', 2500));
+      }
+    }
   };
 
-  const body = JSON.stringify({
+export const updateOne__FAQ =
+  (
     metaTitle,
     metaDescription,
     keyWords,
     questionText,
     answerText,
-  });
+    id__FAQ,
+    history
+  ) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  try {
-    const { data } = await axios.post(`/api/admin/faqs`, body, config);
+    const body = JSON.stringify({
+      metaTitle,
+      metaDescription,
+      keyWords,
+      questionText,
+      answerText,
+    });
 
-    dispatch(FAQ__Actions.add_one__FAQ(data.data));
+    try {
+      const { data } = await axios.put(
+        `/api/admin/faqs/${id__FAQ}`,
+        body,
+        config
+      );
 
-    dispatch(getAll__FAQ());
-  } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'error', 2500));
+      dispatch(FAQ__Actions.add_one__FAQ(data.data));
+      dispatch(setAlert('Обновлено успешно', 'success', 2500));
+      dispatch(getAll__FAQ());
+      history.goBack();
+    } catch (err) {
+      const error = err.response.data.error;
+      if (error) {
+        dispatch(setAlert(error, 'error', 2500));
+      }
     }
-  }
-};
-
-export const updateOne__FAQ = (
-  metaTitle,
-  metaDescription,
-  keyWords,
-  questionText,
-  answerText,
-  id__FAQ
-) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
-
-  const body = JSON.stringify({
-    metaTitle,
-    metaDescription,
-    keyWords,
-    questionText,
-    answerText,
-  });
-
-  try {
-    const { data } = await axios.put(
-      `/api/admin/faqs/${id__FAQ}`,
-      body,
-      config
-    );
-
-    dispatch(FAQ__Actions.add_one__FAQ(data.data));
-
-    dispatch(getAll__FAQ());
-  } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'error', 2500));
-    }
-  }
-};
 
 export const getAll__FAQ = () => async (dispatch) => {
   try {

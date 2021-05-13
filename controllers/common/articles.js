@@ -70,17 +70,6 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
     header_H4,
     imageAlt,
   } = req.body;
-  // console.log(
-  //   req.file,
-  //   metaTitle,
-  //   metaDescription,
-  //   keyWords,
-  //   header_H1,
-  //   header_H2,
-  //   header_H3,
-  //   header_H4,
-  //   imageAlt
-  // );
 
   if (
     !metaTitle ||
@@ -105,24 +94,28 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
   }
 
   try {
-    const new__Article = new Model__Article({
-      metaTitle,
-      metaDescription,
-      keyWords,
-      header_H1,
-      header_H2,
-      header_H3,
-      header_H4,
-      imageAlt,
-      imageUrl: `/uploads/${req.file.filename}`,
-    });
+    if (req.file.filename) {
+      const new__Article = new Model__Article({
+        metaTitle,
+        metaDescription,
+        keyWords,
+        header_H1,
+        header_H2,
+        header_H3,
+        header_H4,
+        imageAlt,
+        imageUrl: `/uploads/${req.file.filename}`,
+      });
 
-    await new__Article.save();
+      await new__Article.save();
 
-    res.status(201).json({
-      success: true,
-      data: new__Article,
-    });
+      res.status(201).json({
+        success: true,
+        data: new__Article,
+      });
+    } else {
+      return next(new ErrorResponse('File has not been named', 500));
+    }
   } catch (error) {
     res.status(500).json(error.message);
     return;

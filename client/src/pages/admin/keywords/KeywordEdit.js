@@ -66,10 +66,10 @@ const KeywordEdit = () => {
   }, [state__KEYWORD.one__KEYWORD]);
 
   const onSubmit = () => {
-    dispatch(updateOne__KEYWORD(keyWord_text, id));
+    dispatch(updateOne__KEYWORD(keyWord_text, id, history));
 
     clearFormData();
-    history.goBack();
+    // history.goBack();
   };
 
   const onChangeHandler = (event) => {
