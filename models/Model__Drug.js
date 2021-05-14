@@ -9,6 +9,10 @@ const Model__Drug = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a description of drug'],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('Drug', Model__Drug);

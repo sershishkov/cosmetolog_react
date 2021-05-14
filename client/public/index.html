@@ -46,6 +46,16 @@
     media-src * data: blob: filesystem:;"
     /> -->
 
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content=" script-src 'sha256-ODjHUiCEGIpHomTwVn5TJfPLx+1xc78+RXCCwuS864k='  "
+    /> -->
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content=" style-src * blob 'unsafe-inline';"
+    />
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/

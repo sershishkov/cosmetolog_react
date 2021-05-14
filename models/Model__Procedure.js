@@ -41,13 +41,3 @@ const Model__Procedure = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Procedure', Model__Procedure);
-
-// let Export__Procedure;
-
-// if (mongoose.models.Procedure) {
-//   Export__Procedure = mongoose.model('Procedure');
-// } else {
-//   Export__Procedure = mongoose.model('Procedure', Model__Procedure);
-// }
-
-// export default Export__Procedure;

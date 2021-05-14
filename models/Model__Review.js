@@ -12,6 +12,10 @@ const Model__Review = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Service',
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('Review', Model__Review);

@@ -19,10 +19,40 @@ const multerFilter = (req, file, cb) => {
   }
 };
 
+const maxFileSize = 5 * 1000000;
+
 const upload = multer({
-  limits: 50000,
+  limits: { fileSize: maxFileSize },
   storage: multerStorage,
   fileFilter: multerFilter,
+  onError: function (err, next) {
+    if (err) {
+      // console.log(err);
+      // console.log(err.code);
+      switch (err.code) {
+        // case 'LIMIT_UNEXPECTED_FILE':
+        //   res.end('Number of files choosen for uploading are greater than ' + 2)
+        //   break
+        case 'LIMIT_FILE_SIZE':
+          return next(
+            new ErrorResponse(
+              `Choosen file size is greater than ${maxFileSize} bites`,
+              422
+            )
+          );
+
+        // break;
+        // case 'INVALID_FILE_TYPE':
+        //   res.end('Choosen file is of invalid type')
+        //   break
+        // case 'ENOENT':
+        //   res.end('Unable to store the file')
+        //   break
+      }
+    }
+
+    // next(err);
+  },
 });
 
 exports.uploadPhoto = upload.single('photoWork');
@@ -88,14 +118,14 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
     header_H4.trim() === '' ||
     !imageAlt ||
     imageAlt.trim() === '' ||
-    !req.file
+    !req.file.filename
   ) {
     return next(new ErrorResponse('Invalid input', 422));
   }
 
   try {
     if (req.file.filename) {
-      const new__Article = new Model__Article({
+      const new__Article = await Model__Article.create({
         metaTitle,
         metaDescription,
         keyWords,
@@ -107,12 +137,14 @@ exports.add__Article = asyncHandler(async (req, res, next) => {
         imageUrl: `/uploads/${req.file.filename}`,
       });
 
-      await new__Article.save();
-
-      res.status(201).json({
-        success: true,
-        data: new__Article,
-      });
+      if (new__Article) {
+        res.status(201).json({
+          success: true,
+          data: new__Article,
+        });
+      } else {
+        return next(new ErrorResponse('Object was not created', 500));
+      }
     } else {
       return next(new ErrorResponse('File has not been named', 500));
     }
@@ -183,7 +215,7 @@ exports.update__Article = asyncHandler(async (req, res, next) => {
     const oldObj = await Model__Article.findById(req.params.id);
     if (req.file) {
       fs.unlink(`.${oldObj.imageUrl}`, (err) => {
-        console.log('187', err);
+        console.log('fs.unlink', err);
       });
       new__Article.imageUrl = `/uploads/${req.file.filename}`;
     }
@@ -293,7 +325,7 @@ exports.delete__Article = asyncHandler(async (req, res, next) => {
     }
 
     fs.unlink(`.${one__Article.imageUrl}`, (err) => {
-      console.log('297', err);
+      console.log('fs.unlink', err);
     });
 
     res.status(200).json({

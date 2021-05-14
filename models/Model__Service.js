@@ -59,12 +59,3 @@ const Model__Service = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Service', Model__Service);
-// let Export__Service;
-
-// if (mongoose.models.Service) {
-//   Export__Service = mongoose.model('Service');
-// } else {
-//   Export__Service = mongoose.model('Service', Model__Service);
-// }
-
-// export default Export__Service;
