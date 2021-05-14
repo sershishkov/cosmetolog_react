@@ -428,7 +428,7 @@ const ArticleEdit = () => {
           type='text'
           multiline
           rowsMax={8}
-          placeholder='Ответ на вопрос'
+          // placeholder='Ответ на вопрос'
           value={header_H2 ? header_H2 : ''}
           error={header_H2__Helper.length !== 0}
           helperText={header_H2__Helper}
@@ -446,7 +446,7 @@ const ArticleEdit = () => {
           type='text'
           multiline
           rowsMax={8}
-          placeholder='Ответ на вопрос'
+          // placeholder='Ответ на вопрос'
           value={header_H3 ? header_H3 : ''}
           error={header_H3__Helper.length !== 0}
           helperText={header_H3__Helper}
@@ -464,7 +464,7 @@ const ArticleEdit = () => {
           type='text'
           multiline
           rowsMax={8}
-          placeholder='Ответ на вопрос'
+          // placeholder='Ответ на вопрос'
           value={header_H4 ? header_H4 : ''}
           error={header_H4__Helper.length !== 0}
           helperText={header_H4__Helper}
@@ -482,7 +482,7 @@ const ArticleEdit = () => {
           type='text'
           multiline
           rowsMax={8}
-          placeholder='Ответ на вопрос'
+          // placeholder='Ответ на вопрос'
           value={imageAlt ? imageAlt : ''}
           error={imageAlt__Helper.length !== 0}
           helperText={imageAlt__Helper}

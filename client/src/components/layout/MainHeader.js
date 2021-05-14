@@ -218,7 +218,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 28,
     color: theme.palette.common.colorGreen,
   },
-  drawerItem_text: {},
+
   fixedButton: {
     position: 'fixed',
     width: 251,
@@ -244,20 +244,31 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  accordion: {},
-  accordionSummary: {},
+  accordion: {
+    // border: '1px solid #f00',
+  },
+  accordionSummary: {
+    // border: '1px solid #0f0',
+  },
   accordionSummaryHeading: {
     fontSize: '2rem',
     [theme.breakpoints.down('md')]: {
       fontSize: '2rem',
     },
   },
-  accordionSummaryDetails: {},
+  accordionSummaryDetails: {
+    // border: '1px solid #0f0',
+  },
   listAccoprdion: {
+    width: '100%',
+    // border: '1px solid #00f',
     fontSize: '2rem',
     [theme.breakpoints.down('md')]: {
       fontSize: '2rem',
     },
+  },
+  drawerItem_text: {
+    color: theme.palette.common.colorGrey_9,
   },
 }));
 
@@ -292,6 +303,8 @@ function MainHeader() {
         <List disablePadding className={classes.listDrawer}>
           {!isAuthenticated && (
             <ListItem
+              component={Link}
+              href='/login'
               divider
               button
               onClick={() => {
@@ -299,23 +312,21 @@ function MainHeader() {
               }}
               className={classes.drawerItem}
             >
-              <Link href='/login'>
-                <Grid container justify='flex-start' alignItems='center'>
-                  <Grid item>
-                    <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                      <ExitToAppIcon className={classes.drawerItem_icon} />
-                    </ListItemIcon>
-                  </Grid>
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      className={classes.drawerItem_text}
-                    >
-                      Вход
-                    </ListItemText>
-                  </Grid>
+              <Grid container justify='flex-start' alignItems='center'>
+                <Grid item>
+                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                    <ExitToAppIcon className={classes.drawerItem_icon} />
+                  </ListItemIcon>
                 </Grid>
-              </Link>
+                <Grid item>
+                  <ListItemText
+                    disableTypography
+                    className={classes.drawerItem_text}
+                  >
+                    Вход
+                  </ListItemText>
+                </Grid>
+              </Grid>
             </ListItem>
           )}
 
@@ -349,6 +360,8 @@ function MainHeader() {
 
           {isAuthenticated && (
             <ListItem
+              component={Link}
+              href='/my-office'
               divider
               button
               onClick={() => {
@@ -356,27 +369,27 @@ function MainHeader() {
               }}
               className={classes.drawerItem}
             >
-              <Link href='/my-office'>
-                <Grid container justify='flex-start' alignItems='center'>
-                  <Grid item>
-                    <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                      <DirectionsRunIcon className={classes.drawerItem_icon} />
-                    </ListItemIcon>
-                  </Grid>
-                  <Grid item>
-                    <ListItemText
-                      disableTypography
-                      className={classes.drawerItem_text}
-                    >
-                      Мой кабинет
-                    </ListItemText>
-                  </Grid>
+              <Grid container justify='flex-start' alignItems='center'>
+                <Grid item>
+                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                    <DirectionsRunIcon className={classes.drawerItem_icon} />
+                  </ListItemIcon>
                 </Grid>
-              </Link>
+                <Grid item>
+                  <ListItemText
+                    disableTypography
+                    className={classes.drawerItem_text}
+                  >
+                    Мой кабинет
+                  </ListItemText>
+                </Grid>
+              </Grid>
             </ListItem>
           )}
 
           <ListItem
+            component={Link}
+            href='/services'
             divider
             button
             onClick={() => {
@@ -384,26 +397,26 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/services'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <WorkIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Услуги
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <WorkIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Услуги
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
 
           <ListItem
+            component={Link}
+            href='/teaching'
             divider
             button
             onClick={() => {
@@ -411,26 +424,26 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/teaching'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <MoreIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Обучение
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <MoreIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Обучение
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
 
           <ListItem
+            component={Link}
+            href='/about'
             divider
             button
             onClick={() => {
@@ -438,26 +451,26 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/about'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <InboxIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Обо мне
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <InboxIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Обо мне
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
 
           <ListItem
+            component={Link}
+            href='/reviews'
             divider
             button
             onClick={() => {
@@ -465,26 +478,26 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/reviews'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <RateReviewIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Отзывы
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <RateReviewIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Отзывы
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
 
           <ListItem
+            component={Link}
+            href='/useful-info'
             divider
             button
             onClick={() => {
@@ -492,26 +505,26 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/useful-info'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <InfoIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Полезная информация
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <InfoIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Полезная информация
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
 
           <ListItem
+            component={Link}
+            href='/contacts'
             divider
             button
             onClick={() => {
@@ -519,23 +532,21 @@ function MainHeader() {
             }}
             className={classes.drawerItem}
           >
-            <Link href='/contacts'>
-              <Grid container justify='flex-start' alignItems='center'>
-                <Grid item>
-                  <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    <ContactsIcon className={classes.drawerItem_icon} />
-                  </ListItemIcon>
-                </Grid>
-                <Grid item>
-                  <ListItemText
-                    disableTypography
-                    className={classes.drawerItem_text}
-                  >
-                    Контакты
-                  </ListItemText>
-                </Grid>
+            <Grid container justify='flex-start' alignItems='center'>
+              <Grid item>
+                <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                  <ContactsIcon className={classes.drawerItem_icon} />
+                </ListItemIcon>
               </Grid>
-            </Link>
+              <Grid item>
+                <ListItemText
+                  disableTypography
+                  className={classes.drawerItem_text}
+                >
+                  Контакты
+                </ListItemText>
+              </Grid>
+            </Grid>
           </ListItem>
         </List>
         {user && user.role === 'admin' && (
@@ -553,6 +564,8 @@ function MainHeader() {
             <AccordionDetails className={classes.accordionSummaryDetails}>
               <List disablePadding className={classes.listAccoprdion}>
                 <ListItem
+                  component={Link}
+                  href='/admin/users'
                   divider
                   button
                   onClick={() => {
@@ -560,26 +573,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/users'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Клиенты
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Клиенты
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/services'
                   divider
                   button
                   onClick={() => {
@@ -587,26 +600,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/services'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Услуги
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Услуги
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/procedures'
                   divider
                   button
                   onClick={() => {
@@ -614,26 +627,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/procedures'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Процедуры
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Процедуры
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/keywords'
                   divider
                   button
                   onClick={() => {
@@ -641,26 +654,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/keywords'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Ключевые слова
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Ключевые слова
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/faqs'
                   divider
                   button
                   onClick={() => {
@@ -668,26 +681,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/faqs'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Вопросы и Ответы
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Вопросы и Ответы
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/comments'
                   divider
                   button
                   onClick={() => {
@@ -695,26 +708,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/comments'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Комментарии
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Комментарии
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/articles'
                   divider
                   button
                   onClick={() => {
@@ -722,26 +735,26 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/articles'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Статьи
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Статьи
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
 
                 <ListItem
+                  component={Link}
+                  href='/admin/reviews'
                   divider
                   button
                   onClick={() => {
@@ -749,23 +762,21 @@ function MainHeader() {
                   }}
                   className={classes.drawerItem}
                 >
-                  <Link href='/admin/reviews'>
-                    <Grid container justify='flex-start' alignItems='center'>
-                      <Grid item>
-                        <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                          <ContactsIcon className={classes.drawerItem_icon} />
-                        </ListItemIcon>
-                      </Grid>
-                      <Grid item>
-                        <ListItemText
-                          disableTypography
-                          className={classes.drawerItem_text}
-                        >
-                          Отзывы
-                        </ListItemText>
-                      </Grid>
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
                     </Grid>
-                  </Link>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Отзывы
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
                 </ListItem>
               </List>
             </AccordionDetails>
@@ -865,7 +876,7 @@ function MainHeader() {
                         </Grid>
 
                         <Grid item className={classes.nav_wrapLink}>
-                          <Link href='/about-me'>
+                          <Link href='/about'>
                             <Typography variant='h5'>Обо мне</Typography>
                           </Link>
                         </Grid>

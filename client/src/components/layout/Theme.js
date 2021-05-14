@@ -134,26 +134,28 @@ export default createMuiTheme({
     caption: {},
     overline: {},
   },
-  // overrides: {
-  //   MuiInputLabel: {
-  //     root: {
-  //       // color: arcBlue,
-  //       // fontSize: '1rem',
-  //     },
-  //   },
-  //   MuiInput: {
-  //     root: {
-  //       // fontWeight: 300,
-  //       // color: arcGrey,
-  //     },
-  //     underline: {
-  //       '&:before': {
-  //         borderBottom: `2px solid ${arcBlue}`,
-  //       },
-  //       '&:hover:not($disabled):not($focused):not($error):before': {
-  //         borderBottom: `2px solid ${arcBlue}`,
-  //       },
-  //     },
-  //   },
-  // },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: colorGrey_9,
+        fontSize: '1rem',
+      },
+    },
+    MuiInput: {
+      root: {
+        fontWeight: 600,
+        color: colorGrey_9,
+        fontSize: '2rem',
+        padding: '0.25rem',
+      },
+      underline: {
+        '&:before': {
+          borderBottom: `2px solid ${colorGreen}`,
+        },
+        '&:hover:not($disabled):not($focused):not($error):before': {
+          borderBottom: `2px solid ${colorGreen}`,
+        },
+      },
+    },
+  },
 });
