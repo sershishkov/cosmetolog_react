@@ -139,7 +139,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 //@route  GET /api/auth/me
 //@access Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
+  // console.log(req.user);
   const user = await User.findById(req.user._id);
 
   res.status(200).json({
