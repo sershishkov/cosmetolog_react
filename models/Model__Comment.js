@@ -8,7 +8,7 @@ const Model__Comment = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  review: {
+  reviewBelongs: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review',
   },

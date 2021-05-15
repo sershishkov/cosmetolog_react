@@ -8,7 +8,7 @@ const Model__Review = require('../../models/Model__Review');
 exports.add__Review = asyncHandler(async (req, res, next) => {
   //Check if  exists something in body
 
-  const { reviewText, reviewAuthor, serviceBelongs } = req.body;
+  const { reviewText, serviceBelongs } = req.body;
   if (!reviewText || reviewText.trim() === '' || !serviceBelongs) {
     return next(new ErrorResponse('Invalid input', 422));
   }
