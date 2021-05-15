@@ -1,4 +1,4 @@
-const SVG_LogoColor = (props) => {
+const SvgLogoColor = (props) => {
   return (
     <svg
       width={`${props.width || 428}`}
@@ -19,4 +19,4 @@ const SVG_LogoColor = (props) => {
   );
 };
 
-export default SVG_LogoColor;
+export default SvgLogoColor;

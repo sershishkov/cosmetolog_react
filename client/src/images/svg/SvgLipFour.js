@@ -1,4 +1,4 @@
-const SVG_LipFour = (props) => {
+const SvgLipFour = (props) => {
   return (
     <svg
       width={`${props.width}`}
@@ -15,4 +15,4 @@ const SVG_LipFour = (props) => {
   );
 };
 
-export default SVG_LipFour;
+export default SvgLipFour;

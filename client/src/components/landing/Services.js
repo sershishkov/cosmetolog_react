@@ -6,10 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import Button from '@material-ui/core/Button';
-// import SvgLipOne from '../../images/svg/SVG_LipOne';
-// import SvgLipTwo from '../../images/svg/SVGLipTwo';
-// import SvgLipThree from '../../images/svg/SVGLipThree';
-// import SvgLipFour from '../../images/svg/SVGLipFour';
+import SvgLipOne from '../../images/svg/SvgLipOne';
+import SvgLipTwo from '../../images/svg/SvgLipTwo';
+import SvgLipThree from '../../images/svg/SvgLipThree';
+import SvgLipFour from '../../images/svg/SvgLipFour';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +79,7 @@ const Services = () => {
               >
                 <Grid container className={classes.service_icon_warap_svg}>
                   <Grid item>
-                    {/* <SvgLipOne width={132} height={52} color={`#9CCE9B`} /> */}
+                    <SvgLipOne width={132} height={52} color={`#9CCE9B`} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -138,7 +138,7 @@ const Services = () => {
               >
                 <Grid container className={classes.service_icon_warap_svg}>
                   <Grid item>
-                    {/* <SvgLipTwo width={116} height={52} color={`#9CCE9B`} /> */}
+                    <SvgLipTwo width={116} height={52} color={`#9CCE9B`} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -201,7 +201,7 @@ const Services = () => {
               >
                 <Grid container className={classes.service_icon_warap_svg}>
                   <Grid item>
-                    {/* <SvgLipThree width={145} height={100} color={`#9CCE9B`} /> */}
+                    <SvgLipThree width={145} height={100} color={`#9CCE9B`} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -260,7 +260,7 @@ const Services = () => {
               >
                 <Grid container className={classes.service_icon_warap_svg}>
                   <Grid item>
-                    {/* <SvgLipFour width={116} height={52} color={`#9CCE9B`} /> */}
+                    <SvgLipFour width={116} height={52} color={`#9CCE9B`} />
                   </Grid>
                 </Grid>
               </Grid>
