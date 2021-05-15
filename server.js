@@ -69,8 +69,8 @@ const articles = require('./routes/common/articles');
 const drugs = require('./routes/common/drugs');
 const procedures = require('./routes/common/procedures');
 const services = require('./routes/common/services');
+const reviews = require('./routes/common/reviews');
 // const comments = require('./routes/common/comments');
-// const reviews = require('./routes/common/faqs');
 
 /////////////////////////////////////////////////////
 //Mount routes
@@ -87,8 +87,8 @@ app.use('/api/admin/articles', articles);
 app.use('/api/admin/drugs', drugs);
 app.use('/api/admin/procedures', procedures);
 app.use('/api/admin/services', services);
+app.use('/api/admin/reviews', reviews);
 // app.use('/api/admin/comments', comments);
-// app.use('/api/admin/reviews', reviews);
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
