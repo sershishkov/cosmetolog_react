@@ -6,6 +6,8 @@ const {
   getAll__Service,
   getOne__Service,
   delete__Service,
+  uploadPhoto,
+  resizePhoto,
 } = require('../../controllers/common/services');
 
 const { protect, authorize } = require('../../middleware/auth');
@@ -18,8 +20,8 @@ router.get('/:id', getOne__Service);
 router.use(protect);
 router.use(authorize('admin'));
 
-router.post('/', add__Service);
-router.put('/:id', update__Service);
+router.post('/', uploadPhoto, resizePhoto, add__Service);
+router.put('/:id', uploadPhoto, resizePhoto, update__Service);
 router.delete('/:id', delete__Service);
 
 module.exports = router;

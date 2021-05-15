@@ -67,10 +67,10 @@ const kewords = require('./routes/common/keywords');
 const faqs = require('./routes/common/faqs');
 const articles = require('./routes/common/articles');
 const drugs = require('./routes/common/drugs');
-// const procedures = require('./routes/common/procedures');
+const procedures = require('./routes/common/procedures');
+const services = require('./routes/common/services');
 // const comments = require('./routes/common/comments');
 // const reviews = require('./routes/common/faqs');
-// const services = require('./routes/common/services');
 
 /////////////////////////////////////////////////////
 //Mount routes
@@ -85,10 +85,10 @@ app.use('/api/admin/keywords', kewords);
 app.use('/api/admin/faqs', faqs);
 app.use('/api/admin/articles', articles);
 app.use('/api/admin/drugs', drugs);
-// app.use('/api/admin/procedures', procedures);
+app.use('/api/admin/procedures', procedures);
+app.use('/api/admin/services', services);
 // app.use('/api/admin/comments', comments);
 // app.use('/api/admin/reviews', reviews);
-// app.use('/api/admin/services', services);
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {

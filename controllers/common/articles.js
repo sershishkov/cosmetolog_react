@@ -48,10 +48,10 @@ const upload = multer({
         // case 'ENOENT':
         //   res.end('Unable to store the file')
         //   break
+        default:
+          return next(new ErrorResponse(`${err.code} -  ${err}`, 500));
       }
     }
-
-    // next(err);
   },
 });
 
@@ -212,8 +212,8 @@ exports.update__Article = asyncHandler(async (req, res, next) => {
     //   });
     // });
 
-    const oldObj = await Model__Article.findById(req.params.id);
     if (req.file) {
+      const oldObj = await Model__Article.findById(req.params.id);
       fs.unlink(`.${oldObj.imageUrl}`, (err) => {
         console.log('fs.unlink', err);
       });

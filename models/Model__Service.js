@@ -14,6 +14,13 @@ const Model__Service = new mongoose.Schema({
     },
   ],
 
+  procedures: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Procedure',
+    },
+  ],
+
   imageUrl: {
     type: String,
     // required: true,
@@ -25,26 +32,16 @@ const Model__Service = new mongoose.Schema({
     type: String,
   },
 
-  timing_H3: { type: String },
-  timing: { type: String },
-
-  procedures: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Procedure',
-    },
-  ],
-
-  serviceHeader_H2: { type: String },
-  serviceDescription: { type: String },
-  serviceAdvantageHeader_H2: { type: String },
-  serviceAdvantageDescription: { type: String },
-  servicePreparationHeader_H2: { type: String },
-  servicePreparationDescription: { type: String },
+  advantageHeader_H2: { type: String },
+  advantageDescription: { type: String },
+  timing_H2: { type: String },
+  timingDescription: { type: String },
+  preparationHeader_H2: { type: String },
+  preparationDescription: { type: String },
   recoveryAfterServiceHeader_H2: { type: String },
   recoveryAfterServiceDescription: { type: String },
-  serviceResultHeader_H2: { type: String },
-  serviceResultDescription: { type: String },
+  resultHeader_H2: { type: String },
+  resultDescription: { type: String },
   priceHeader_H2: { type: String },
   priceDescription: { type: String },
 

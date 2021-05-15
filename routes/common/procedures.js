@@ -6,6 +6,8 @@ const {
   getAll__Procedure,
   getOne__Procedure,
   delete__Procedure,
+  uploadPhoto,
+  resizePhoto,
 } = require('../../controllers/common/procedures');
 
 const { protect, authorize } = require('../../middleware/auth');
@@ -18,8 +20,8 @@ router.get('/:id', getOne__Procedure);
 router.use(protect);
 router.use(authorize('admin'));
 
-router.post('/', add__Procedure);
-router.put('/:id', update__Procedure);
+router.post('/', uploadPhoto, resizePhoto, add__Procedure);
+router.put('/:id', uploadPhoto, resizePhoto, update__Procedure);
 router.delete('/:id', delete__Procedure);
 
 module.exports = router;
