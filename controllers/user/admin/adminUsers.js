@@ -15,7 +15,7 @@ exports.add__Our_User = asyncHandler(async (req, res, next) => {
     name,
     email: email.toLowerCase(),
     role: role === 'admin' ? 'user' : role,
-    myAvatar: myAvatar ? myAvatar : './uploads/default_user.jpg',
+    myAvatar: myAvatar ? myAvatar : '/uploads/default_user.jpg',
     password,
   });
 
@@ -41,7 +41,7 @@ exports.update__Our_User = asyncHandler(async (req, res, next) => {
     name,
     email: email.toLowerCase(),
     role: role === 'admin' ? 'user' : role,
-    myAvatar: myAvatar ? myAvatar : './uploads/default_user.jpg',
+    myAvatar: myAvatar ? myAvatar : '/uploads/default_user.jpg',
     password,
   };
 

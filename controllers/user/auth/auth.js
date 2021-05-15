@@ -1,6 +1,79 @@
+const fs = require('fs');
+const multer = require('multer');
+const sharp = require('sharp');
+
 const ErrorResponse = require('../../../utils/errorResponse');
 const asyncHandler = require('../../../middleware/async');
 const User = require('../../../models/user/User');
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(
+      new ErrorResponse('Not an image! Please upload only images.', 400),
+      false
+    );
+  }
+};
+
+const maxFileSize = 5 * 1000000;
+
+const upload = multer({
+  limits: { fileSize: maxFileSize },
+  storage: multerStorage,
+  fileFilter: multerFilter,
+  onError: function (err, next) {
+    if (err) {
+      switch (err.code) {
+        case 'LIMIT_FILE_SIZE':
+          return next(
+            new ErrorResponse(
+              `Choosen file size is greater than ${maxFileSize} bites`,
+              422
+            )
+          );
+
+        default:
+          return next(new ErrorResponse(`${err.code} -  ${err}`, 500));
+      }
+    }
+  },
+});
+
+exports.uploadPhoto = upload.single('myAvatar');
+
+exports.resizePhoto = asyncHandler(async (req, res, next) => {
+  if (!req.file) return next();
+
+  req.file.filename = `${req.user.id}-${Date.now()}.jpeg`;
+
+  if (req.file.size > 2000000) {
+    await sharp(req.file.buffer)
+      .resize({
+        fit: sharp.fit.contain,
+        width: 60,
+        height: 60,
+      })
+      .toFormat('jpeg')
+      .jpeg({ quality: 50 })
+      .toFile(`uploads/${req.file.filename}`);
+  } else {
+    await sharp(req.file.buffer)
+      .resize({
+        fit: sharp.fit.contain,
+        width: 60,
+        height: 60,
+      })
+      .toFormat('jpeg')
+      .jpeg({ quality: 100 })
+      .toFile(`uploads/${req.file.filename}`);
+  }
+
+  next();
+});
 
 //@desc   Register user
 //@route  POST /api/auth/register
@@ -66,7 +139,8 @@ exports.logout = asyncHandler(async (req, res, next) => {
 //@route  GET /api/auth/me
 //@access Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  console.log(req.user);
+  const user = await User.findById(req.user._id);
 
   res.status(200).json({
     success: true,
@@ -78,34 +152,57 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 //@route  PUT /api/auth/updatedetails
 //@access Private
 exports.updateDetails = asyncHandler(async (req, res, next) => {
-  const fieldsToUpdate = {
-    name: req.body.name,
-    email: req.body.email.toLowerCase(),
+  const { name, patronymic, lastName, telNumber, dateBirth, email } = req.body;
+  const newUserDetails = {
+    name,
+    patronymic,
+    lastName,
+    telNumber,
+    dateBirth,
+    email,
   };
+  try {
+    if (req.file) {
+      const oldObj = await User.findById(req.user._id);
+      if (oldObj.myAvatar !== '/uploads/default_user.jpg') {
+        fs.unlink(`.${oldObj.myAvatar}`, (err) => {
+          console.log('fs.unlink', err);
+        });
+      }
+      newUserDetails.myAvatar = `/uploads/${req.file.filename}`;
+    }
+    const user = await User.findByIdAndUpdate(req.user._id, newUserDetails, {
+      new: true,
+      runValidators: true,
+    });
 
-  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
-    new: true,
-    runValidators: true,
-  });
-
-  res.status(200).json({
-    success: true,
-    data: user,
-  });
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json(error.message);
+    return;
+  }
 });
 
 //@desc   Update password
 //@route  PUT /api/auth/updatepassword
 //@access Private
 exports.updatePassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id).select('+password');
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return next(new ErrorResponse('Invalid input', 422));
+  }
+  const user = await User.findById(req.user._id).select('+password');
 
   //Check current password
-  if (!(await user.matchPassword(req.body.currentPassword))) {
+  if (!(await user.matchPassword(currentPassword))) {
     return next(new ErrorResponse('Password is incorrect', 401));
   }
 
-  user.password = req.body.newPassword;
+  user.password = newPassword;
   await user.save();
 
   sendTokenResponse(user, 200, res);

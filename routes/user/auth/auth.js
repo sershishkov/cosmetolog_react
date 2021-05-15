@@ -7,6 +7,8 @@ const {
   getMe,
   updateDetails,
   updatePassword,
+  uploadPhoto,
+  resizePhoto,
 } = require('../../../controllers/user/auth/auth');
 
 const { protect } = require('../../../middleware/auth');
@@ -17,7 +19,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.get('/logout', logout);
 router.get('/me', protect, getMe);
-router.put('/updatedetails', protect, updateDetails);
+router.put('/updatedetails', protect, uploadPhoto, resizePhoto, updateDetails);
 router.put('/updatepassword', protect, updatePassword);
 
 module.exports = router;
