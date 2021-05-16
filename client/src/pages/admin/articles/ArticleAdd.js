@@ -109,7 +109,7 @@ const ArticleAdd = () => {
     setPreviewUrl('');
   };
   useEffect(() => {
-    dispatch(setNameOfPage('Добавить вопрос'));
+    dispatch(setNameOfPage('Добавить статью'));
     dispatch(getAll__KEYWORD());
   }, [dispatch]);
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setNameOfPage } from '../../../reduxStore/actions/nameOfPage';
-import { addOne__COMMENT } from '../../../reduxStore/actions/admin/comment';
+import { addOne__DRUG } from '../../../reduxStore/actions/admin/drug';
 
 import Fab from '@material-ui/core/Fab';
 
@@ -25,31 +25,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentAdd = () => {
+const DrugAdd = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state__nameOfPage = useSelector((state) => state.nameOfPage.pageName);
   const history = useHistory();
-  const { review__id } = useParams();
 
   const [formData, setFormData] = useState({
-    commentText: '',
+    drugName: '',
+    drugDescription: '',
   });
-  const [COMMENT_text__Helper, set__COMMENT_text__Helper] = useState('');
+  const [drugName__Helper, set__drugName__Helper] = useState('');
+  const [drugDescription__Helper, set__drugDescription__Helper] = useState('');
 
-  const { commentText } = formData;
+  const { drugName, drugDescription } = formData;
 
   const clearFormData = () => {
     setFormData({
-      commentText: '',
+      drugName: '',
+      drugDescription: '',
     });
   };
   useEffect(() => {
-    dispatch(setNameOfPage('Добавить комментарий'));
+    dispatch(setNameOfPage('Добавить лекарство'));
   }, [dispatch]);
 
   const onSubmit = () => {
-    dispatch(addOne__COMMENT(commentText, review__id, history));
+    dispatch(addOne__DRUG(drugName, drugDescription, history));
 
     clearFormData();
     // history.goBack();
@@ -60,12 +62,21 @@ const CommentAdd = () => {
 
     let valid;
     switch (event.target.id) {
-      case 'commentText':
+      case 'drugName':
         valid = event.target.value.length >= 3;
         if (!valid) {
-          set__COMMENT_text__Helper('Минимальная длина 3 знака');
+          set__drugName__Helper('Минимальная длина 3 знака');
         } else {
-          set__COMMENT_text__Helper('');
+          set__drugName__Helper('');
+        }
+        break;
+
+      case 'drugDescription':
+        valid = event.target.value.length >= 3;
+        if (!valid) {
+          set__drugDescription__Helper('Минимальная длина 3 знака');
+        } else {
+          set__drugDescription__Helper('');
         }
         break;
 
@@ -95,13 +106,31 @@ const CommentAdd = () => {
       <Grid item className={classes.item}>
         <TextField
           autoFocus
-          id='commentText'
-          name='commentText'
+          id='drugName'
+          name='drugName'
           label='Ключевое слово'
           type='text'
-          value={commentText ? commentText : ''}
-          error={COMMENT_text__Helper.length !== 0}
-          helperText={COMMENT_text__Helper}
+          value={drugName ? drugName : ''}
+          error={drugName__Helper.length !== 0}
+          helperText={drugName__Helper}
+          fullWidth
+          autoComplete='text'
+          onChange={(e) => onChangeHandler(e)}
+        />
+      </Grid>
+      <Grid item className={classes.item}>
+        <TextField
+          // autoFocus
+          id='drugDescription'
+          name='drugDescription'
+          label='drugDescription'
+          type='text'
+          multiline
+          rowsMax={8}
+          placeholder='Ответ на вопрос'
+          value={drugDescription ? drugDescription : ''}
+          error={drugDescription__Helper.length !== 0}
+          helperText={drugDescription__Helper}
           fullWidth
           autoComplete='text'
           onChange={(e) => onChangeHandler(e)}
@@ -110,7 +139,12 @@ const CommentAdd = () => {
 
       <Grid item className={classes.item}>
         <Button
-          disabled={!commentText || COMMENT_text__Helper.length !== 0}
+          disabled={
+            !drugName ||
+            drugName__Helper.length !== 0 ||
+            !drugDescription ||
+            drugDescription__Helper.length !== 0
+          }
           fullWidth
           variant='contained'
           onClick={() => onSubmit()}
@@ -123,13 +157,13 @@ const CommentAdd = () => {
   );
 };
 
-CommentAdd.propTypes = {
+DrugAdd.propTypes = {
   /////Actions//////
   setNameOfPage: PropTypes.func,
-  addOne__COMMENT: PropTypes.func,
+  addOne__DRUG: PropTypes.func,
 
   ////States
   state__nameOfPage: PropTypes.string,
 };
 
-export default CommentAdd;
+export default DrugAdd;

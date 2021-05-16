@@ -270,6 +270,10 @@ const useStyles = makeStyles((theme) => ({
   drawerItem_text: {
     color: theme.palette.common.colorGrey_9,
   },
+  myAvatar: {
+    width: 28,
+    height: 28,
+  },
 }));
 
 function MainHeader() {
@@ -372,6 +376,14 @@ function MainHeader() {
               <Grid container justify='flex-start' alignItems='center'>
                 <Grid item>
                   <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                    {/* {user && user.myAvatar && (
+                      <img
+                        alt='myAvatar'
+                        src={user.myAvatar}
+                        className={classes.myAvatar}
+                      />
+                    )} */}
+
                     <DirectionsRunIcon className={classes.drawerItem_icon} />
                   </ListItemIcon>
                 </Grid>
@@ -646,6 +658,33 @@ function MainHeader() {
 
                 <ListItem
                   component={Link}
+                  href='/admin/drugs'
+                  divider
+                  button
+                  onClick={() => {
+                    setOpenDrawer(false);
+                  }}
+                  className={classes.drawerItem}
+                >
+                  <Grid container justify='flex-start' alignItems='center'>
+                    <Grid item>
+                      <ListItemIcon className={classes.drawerItem_wrapIcon}>
+                        <ContactsIcon className={classes.drawerItem_icon} />
+                      </ListItemIcon>
+                    </Grid>
+                    <Grid item>
+                      <ListItemText
+                        disableTypography
+                        className={classes.drawerItem_text}
+                      >
+                        Лекарства
+                      </ListItemText>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+
+                <ListItem
+                  component={Link}
                   href='/admin/keywords'
                   divider
                   button
@@ -698,7 +737,7 @@ function MainHeader() {
                   </Grid>
                 </ListItem>
 
-                <ListItem
+                {/* <ListItem
                   component={Link}
                   href='/admin/comments'
                   divider
@@ -723,7 +762,7 @@ function MainHeader() {
                       </ListItemText>
                     </Grid>
                   </Grid>
-                </ListItem>
+                </ListItem> */}
 
                 <ListItem
                   component={Link}
@@ -752,7 +791,7 @@ function MainHeader() {
                   </Grid>
                 </ListItem>
 
-                <ListItem
+                {/* <ListItem
                   component={Link}
                   href='/admin/reviews'
                   divider
@@ -777,7 +816,7 @@ function MainHeader() {
                       </ListItemText>
                     </Grid>
                   </Grid>
-                </ListItem>
+                </ListItem> */}
               </List>
             </AccordionDetails>
           </Accordion>

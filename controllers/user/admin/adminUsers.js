@@ -10,12 +10,11 @@ exports.add__Our_User = asyncHandler(async (req, res, next) => {
   if (!req.body) {
     return next(new ErrorResponse('Не переданы значения', 400));
   }
-  const { name, email, role, myAvatar, password } = req.body;
+  const { name, email, role, password } = req.body;
   const new__Our_User = new User({
     name,
     email: email.toLowerCase(),
     role: role === 'admin' ? 'user' : role,
-    myAvatar: myAvatar ? myAvatar : '/uploads/default_user.jpg',
     password,
   });
 
@@ -35,13 +34,12 @@ exports.update__Our_User = asyncHandler(async (req, res, next) => {
   if (!req.body) {
     return next(new ErrorResponse('Не переданы значения', 400));
   }
-  const { name, email, role, myAvatar, password } = req.body;
+  const { name, email, role, password } = req.body;
   const { id } = req.params;
   const new__Our_User = {
     name,
     email: email.toLowerCase(),
     role: role === 'admin' ? 'user' : role,
-    myAvatar: myAvatar ? myAvatar : '/uploads/default_user.jpg',
     password,
   };
 

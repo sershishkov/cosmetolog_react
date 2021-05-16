@@ -2,14 +2,15 @@ import axios from 'axios';
 
 import { setAlert } from '../../actions/alert';
 
-import { ARTICLE__Actions } from '../../reducers/admin/article';
+import { PROCEDURE__Actions } from '../../reducers/admin/procedure';
 
-export const addOne__ARTICLE =
+export const addOne__PROCEDURE =
   (
     file,
     metaTitle,
     metaDescription,
     keyWords,
+    drugs,
     header_H1,
     header_H2,
     header_H3,
@@ -23,6 +24,7 @@ export const addOne__ARTICLE =
     photoFormData.append('metaTitle', metaTitle);
     photoFormData.append('metaDescription', metaDescription);
     photoFormData.append('keyWords', keyWords);
+    photoFormData.append('drugs', drugs);
     photoFormData.append('header_H1', header_H1);
     photoFormData.append('header_H2', header_H2);
     photoFormData.append('header_H3', header_H3);
@@ -38,14 +40,16 @@ export const addOne__ARTICLE =
 
     try {
       const { data } = await axios.post(
-        `/api/admin/articles`,
+        `/api/admin/procedures`,
         photoFormData,
         config
       );
 
-      dispatch(ARTICLE__Actions.add_one__ARTICLE(data.data));
+      console.log(data.data);
+
+      dispatch(PROCEDURE__Actions.add_one__PROCEDURE(data.data));
       dispatch(setAlert('Добавлено успешно', 'success', 2500));
-      dispatch(getAll__ARTICLE());
+      dispatch(getAll__PROCEDURE());
       history.goBack();
     } catch (err) {
       const error = err.response.data.error;
@@ -55,18 +59,19 @@ export const addOne__ARTICLE =
     }
   };
 
-export const updateOne__ARTICLE =
+export const updateOne__PROCEDURE =
   (
     file,
     metaTitle,
     metaDescription,
     keyWords,
+    drugs,
     header_H1,
     header_H2,
     header_H3,
     header_H4,
     imageAlt,
-    id__ARTICLE,
+    id__PROCEDURE,
     history
   ) =>
   async (dispatch) => {
@@ -75,6 +80,7 @@ export const updateOne__ARTICLE =
     photoFormData.append('metaTitle', metaTitle);
     photoFormData.append('metaDescription', metaDescription);
     photoFormData.append('keyWords', keyWords);
+    photoFormData.append('drugs', drugs);
     photoFormData.append('header_H1', header_H1);
     photoFormData.append('header_H2', header_H2);
     photoFormData.append('header_H3', header_H3);
@@ -90,14 +96,14 @@ export const updateOne__ARTICLE =
 
     try {
       const { data } = await axios.put(
-        `/api/admin/articles/${id__ARTICLE}`,
+        `/api/admin/procedures/${id__PROCEDURE}`,
         photoFormData,
         config
       );
 
-      dispatch(ARTICLE__Actions.add_one__ARTICLE(data.data));
+      dispatch(PROCEDURE__Actions.add_one__PROCEDURE(data.data));
       dispatch(setAlert('Обновлено успешно', 'success', 2500));
-      dispatch(getAll__ARTICLE());
+      dispatch(getAll__PROCEDURE());
       history.goBack();
     } catch (err) {
       const error = err.response.data.error;
@@ -107,11 +113,11 @@ export const updateOne__ARTICLE =
     }
   };
 
-export const getAll__ARTICLE = () => async (dispatch) => {
+export const getAll__PROCEDURE = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/admin/articles`);
+    const { data } = await axios.get(`/api/admin/procedures`);
 
-    dispatch(ARTICLE__Actions.get_all__ARTICLE(data.data));
+    dispatch(PROCEDURE__Actions.get_all__PROCEDURE(data.data));
   } catch (err) {
     const error = err.response.data.error;
     console.log(err);
@@ -121,12 +127,12 @@ export const getAll__ARTICLE = () => async (dispatch) => {
   }
 };
 
-export const getOne__ARTICLE = (id__ARTICLE) => async (dispatch) => {
+export const getOne__PROCEDURE = (id__PROCEDURE) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/admin/articles/${id__ARTICLE}`);
+    const { data } = await axios.get(`/api/admin/procedures/${id__PROCEDURE}`);
 
-    dispatch(ARTICLE__Actions.get_one__ARTICLE(data.data));
-    dispatch(getAll__ARTICLE());
+    dispatch(PROCEDURE__Actions.get_one__PROCEDURE(data.data));
+    dispatch(getAll__PROCEDURE());
   } catch (err) {
     const error = err.response.data.error;
     if (error) {
@@ -135,13 +141,13 @@ export const getOne__ARTICLE = (id__ARTICLE) => async (dispatch) => {
   }
 };
 
-export const deleteOne__ARTICLE = (id__ARTICLE) => async (dispatch) => {
+export const deleteOne__PROCEDURE = (id__PROCEDURE) => async (dispatch) => {
   try {
-    await axios.delete(`/api/admin/articles/${id__ARTICLE}`);
+    await axios.delete(`/api/admin/procedures/${id__PROCEDURE}`);
 
-    dispatch(ARTICLE__Actions.delete_one__ARTICLE(id__ARTICLE));
+    dispatch(PROCEDURE__Actions.delete_one__PROCEDURE(id__PROCEDURE));
     dispatch(setAlert('Удалено успешно', 'success', 2500));
-    dispatch(getAll__ARTICLE());
+    dispatch(getAll__PROCEDURE());
   } catch (err) {
     const error = err.response.data.error;
     if (error) {

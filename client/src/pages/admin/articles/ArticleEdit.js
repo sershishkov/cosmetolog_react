@@ -143,8 +143,8 @@ const ArticleEdit = () => {
         header_H1: state__ARTICLE.one__ARTICLE.header_H1
           ? state__ARTICLE.one__ARTICLE.header_H1
           : '',
-        header_H2: state__ARTICLE.one__ARTICLE.header_H1
-          ? state__ARTICLE.one__ARTICLE.header_H1
+        header_H2: state__ARTICLE.one__ARTICLE.header_H2
+          ? state__ARTICLE.one__ARTICLE.header_H2
           : '',
 
         header_H3: state__ARTICLE.one__ARTICLE.header_H3

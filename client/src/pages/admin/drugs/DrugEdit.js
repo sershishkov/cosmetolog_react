@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setNameOfPage } from '../../../reduxStore/actions/nameOfPage';
 import {
-  getOne__COMMENT,
-  updateOne__COMMENT,
-} from '../../../reduxStore/actions/admin/comment';
+  getOne__DRUG,
+  updateOne__DRUG,
+} from '../../../reduxStore/actions/admin/drug';
 
 import Fab from '@material-ui/core/Fab';
 
@@ -28,45 +28,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CommentEdit = () => {
+const DrugEdit = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state__nameOfPage = useSelector((state) => state.nameOfPage.pageName);
-  const state__COMMENT = useSelector((state) => state.comment);
+  const state__DRUG = useSelector((state) => state.drug);
   const history = useHistory();
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
-    commentText: '',
+    drugName: '',
+    drugDescription: '',
   });
-  const [COMMENT_text__Helper, set__COMMENT_text__Helper] = useState('');
+  const [drugName__Helper, set__drugName__Helper] = useState('');
+  const [drugDescription__Helper, set__drugDescription__Helper] = useState('');
 
-  const { commentText } = formData;
+  const { drugName, drugDescription } = formData;
 
   const clearFormData = () => {
     setFormData({
-      commentText: '',
+      drugName: '',
+      drugDescription: '',
     });
   };
   useEffect(() => {
-    dispatch(setNameOfPage('Редактировать комментарий'));
+    dispatch(setNameOfPage('Редактировать лекарство'));
     if (id) {
-      dispatch(getOne__COMMENT(id));
+      dispatch(getOne__DRUG(id));
     }
   }, [dispatch, id]);
 
   useLayoutEffect(() => {
-    if (state__COMMENT.one__COMMENT) {
+    if (state__DRUG.one__DRUG) {
       setFormData({
-        commentText: state__COMMENT.one__COMMENT.commentText
-          ? state__COMMENT.one__COMMENT.commentText
+        drugName: state__DRUG.one__DRUG.drugName
+          ? state__DRUG.one__DRUG.drugName
+          : '',
+        drugDescription: state__DRUG.one__DRUG.drugDescription
+          ? state__DRUG.one__DRUG.drugDescription
           : '',
       });
     }
-  }, [state__COMMENT.one__COMMENT]);
+  }, [state__DRUG.one__DRUG]);
 
   const onSubmit = () => {
-    dispatch(updateOne__COMMENT(commentText, id, history));
+    dispatch(updateOne__DRUG(drugName, drugDescription, id, history));
 
     clearFormData();
     // history.goBack();
@@ -77,12 +83,21 @@ const CommentEdit = () => {
 
     let valid;
     switch (event.target.id) {
-      case 'commentText':
+      case 'drugName':
         valid = event.target.value.length >= 3;
         if (!valid) {
-          set__COMMENT_text__Helper('Минимальная длина 3 знака');
+          set__drugName__Helper('Минимальная длина 3 знака');
         } else {
-          set__COMMENT_text__Helper('');
+          set__drugName__Helper('');
+        }
+        break;
+
+      case 'drugDescription':
+        valid = event.target.value.length >= 3;
+        if (!valid) {
+          set__drugDescription__Helper('Минимальная длина 3 знака');
+        } else {
+          set__drugDescription__Helper('');
         }
         break;
 
@@ -112,13 +127,31 @@ const CommentEdit = () => {
       <Grid item className={classes.item}>
         <TextField
           autoFocus
-          id='commentText'
-          name='commentText'
+          id='drugName'
+          name='drugName'
           label='Ключевое слово'
           type='text'
-          value={commentText ? commentText : ''}
-          error={COMMENT_text__Helper.length !== 0}
-          helperText={COMMENT_text__Helper}
+          value={drugName ? drugName : ''}
+          error={drugName__Helper.length !== 0}
+          helperText={drugName__Helper}
+          fullWidth
+          autoComplete='text'
+          onChange={(e) => onChangeHandler(e)}
+        />
+      </Grid>
+      <Grid item className={classes.item}>
+        <TextField
+          // autoFocus
+          id='drugDescription'
+          name='drugDescription'
+          label='drugDescription'
+          type='text'
+          multiline
+          rowsMax={8}
+          placeholder='Ответ на вопрос'
+          value={drugDescription ? drugDescription : ''}
+          error={drugDescription__Helper.length !== 0}
+          helperText={drugDescription__Helper}
           fullWidth
           autoComplete='text'
           onChange={(e) => onChangeHandler(e)}
@@ -127,7 +160,12 @@ const CommentEdit = () => {
 
       <Grid item className={classes.item}>
         <Button
-          disabled={!commentText || COMMENT_text__Helper.length !== 0}
+          disabled={
+            !drugName ||
+            drugName__Helper.length !== 0 ||
+            !drugDescription ||
+            drugDescription__Helper.length !== 0
+          }
           fullWidth
           variant='contained'
           onClick={() => onSubmit()}
@@ -140,15 +178,15 @@ const CommentEdit = () => {
   );
 };
 
-CommentEdit.propTypes = {
+DrugEdit.propTypes = {
   /////Actions//////
   setNameOfPage: PropTypes.func,
-  getOne__COMMENT: PropTypes.func,
-  updateOne__COMMENT: PropTypes.func,
+  getOne__DRUG: PropTypes.func,
+  updateOne__DRUG: PropTypes.func,
 
   ////States
   state__nameOfPage: PropTypes.string,
-  state__COMMENT: PropTypes.object,
+  state__DRUG: PropTypes.object,
 };
 
-export default CommentEdit;
+export default DrugEdit;

@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setNameOfPage } from '../../../reduxStore/actions/nameOfPage';
 import {
-  getAll__PROCEDURE,
-  deleteOne__PROCEDURE,
-} from '../../../reduxStore/actions/admin/procedure';
+  getAll__DRUG,
+  deleteOne__DRUG,
+} from '../../../reduxStore/actions/admin/drug';
 import MaterialTable from '../../../components/helpers/MaterialTable';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,47 +27,31 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: 'auto',
   },
-  img: {
-    width: 100,
-    height: 100,
-    objectFit: 'cover',
-  },
 }));
 
-const ProcedureList = () => {
+const DrugList = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const state__PROCEDURE = useSelector((state) => state.procedure);
+  const state__DRUG = useSelector((state) => state.drug);
   const state__nameOfPage = useSelector((state) => state.nameOfPage.pageName);
 
   useEffect(() => {
-    dispatch(setNameOfPage('Процедуры'));
-    dispatch(getAll__PROCEDURE());
+    dispatch(setNameOfPage('Лекарства'));
+    dispatch(getAll__DRUG());
   }, [dispatch]);
 
   const onDeleteItem = (id) => {
-    dispatch(deleteOne__PROCEDURE(id));
+    dispatch(deleteOne__DRUG(id));
   };
 
   const rows =
-    state__PROCEDURE.array__PROCEDURE &&
-    state__PROCEDURE.array__PROCEDURE.length > 0
-      ? state__PROCEDURE.array__PROCEDURE.map((item) => {
+    state__DRUG.array__DRUG && state__DRUG.array__DRUG.length > 0
+      ? state__DRUG.array__DRUG.map((item) => {
           return {
-            photoWork: (
-              <img
-                src={`${item.imageUrl}`}
-                alt={item.imageAlt}
-                className={classes.img}
-              />
-            ),
-            header_H1: item.header_H1,
+            drugName: item.drugName,
 
             edit: (
-              <IconButton
-                component={Link}
-                href={`/admin/procedures/${item._id}`}
-              >
+              <IconButton component={Link} href={`/admin/drugs/${item._id}`}>
                 <EditIcon color='primary' />
               </IconButton>
             ),
@@ -85,39 +69,17 @@ const ProcedureList = () => {
       title={state__nameOfPage && state__nameOfPage}
       columns={[
         {
-          title: 'Фото',
-          field: 'photoWork',
+          title: 'Лекарства',
+          field: 'drugName',
           cellStyle: {
-            width: '30%',
+            // width: '10%',
             // textAlign: 'center',
             fontSize: '2rem',
             // border: '1px solid #ff0000',
           },
 
           headerStyle: {
-            width: '30%',
-            // textAlign: 'center',
-            fontSize: '2rem',
-            // border: '1px solid #ffff00',
-          },
-        },
-        {
-          title: 'header_H1',
-          field: 'header_H1',
-          cellStyle: {
-            width: '300px',
-            // textAlign: 'center',
-            fontSize: '2rem',
-            // border: '1px solid #ff0000',
-            // display: '-webkit-box',
-            // WebkitLineClamp: 5 /* количество строк */,
-            // WebkitBoxOrient: 'vertical',
-            // overflow: 'hidden',
-            // textOverflow: 'ellipsis',
-          },
-
-          headerStyle: {
-            width: '300px',
+            // width: '10%',
             // textAlign: 'center',
             fontSize: '2rem',
             // border: '1px solid #ffff00',
@@ -125,7 +87,7 @@ const ProcedureList = () => {
         },
 
         {
-          title: 'edit',
+          title: 'Редакт',
           field: 'edit',
           sorting: false,
           filtering: false,
@@ -144,7 +106,7 @@ const ProcedureList = () => {
           },
         },
         {
-          title: 'del',
+          title: 'Удалить',
           field: 'delete',
           sorting: false,
           filtering: false,
@@ -166,7 +128,7 @@ const ProcedureList = () => {
     />
   );
 
-  if (state__PROCEDURE.loading__PROCEDURE) {
+  if (state__DRUG.loading__DRUG) {
     return (
       <Grid
         container
@@ -183,12 +145,12 @@ const ProcedureList = () => {
 
   return (
     <Grid container className={classes.root} direction='column'>
-      <Tooltip title='Добавить процедуру'>
+      <Tooltip title='Добавить комментарий'>
         <Fab
           color='secondary'
           aria-label='add'
           component={Link}
-          href={`/admin/procedures/add`}
+          href={`/admin/drugs/add`}
         >
           <AddIcon />
         </Fab>
@@ -207,15 +169,14 @@ const ProcedureList = () => {
   );
 };
 
-ProcedureList.propTypes = {
+DrugList.propTypes = {
   /////Actions//////
   setNameOfPage: PropTypes.func,
-  getAll__PROCEDURE: PropTypes.func,
-  deleteOne__PROCEDURE: PropTypes.func,
+  getAll__DRUG: PropTypes.func,
+  deleteOne__DRUG: PropTypes.func,
 
   ////States
   state__nameOfPage: PropTypes.string,
-  state__PROCEDURE: PropTypes.object,
 };
 
-export default ProcedureList;
+export default DrugList;
