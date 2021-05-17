@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-// import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
@@ -40,6 +40,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Popover from '@material-ui/core/Popover';
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -286,6 +287,18 @@ function MainHeader() {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [fullSizeLogo, setFullSizeLogo] = useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const popoverId = open ? 'simple-popover' : undefined;
 
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>{error.message}</div>;
@@ -376,15 +389,19 @@ function MainHeader() {
               <Grid container justify='flex-start' alignItems='center'>
                 <Grid item>
                   <ListItemIcon className={classes.drawerItem_wrapIcon}>
-                    {/* {user && user.myAvatar && (
-                      <img
+                    {user && user.myAvatar && (
+                      <Avatar
                         alt='myAvatar'
-                        src={user.myAvatar}
+                        src={
+                          user.myAvatar
+                            ? user.myAvatar
+                            : '/uploads/default_user.jpg'
+                        }
                         className={classes.myAvatar}
                       />
-                    )} */}
+                    )}
 
-                    <DirectionsRunIcon className={classes.drawerItem_icon} />
+                    {/* <DirectionsRunIcon className={classes.drawerItem_icon} /> */}
                   </ListItemIcon>
                 </Grid>
                 <Grid item>
@@ -968,17 +985,108 @@ function MainHeader() {
                     )}
                     {isAuthenticated && (
                       <Grid item className={classes.auth_login}>
-                        <Tooltip title='Выход'>
-                          <IconButton
-                            onClick={() => {
-                              dispatch(logout());
-                            }}
-                          >
-                            <DirectionsRunIcon
+                        {/* <Tooltip title='Выход'> */}
+                        <IconButton
+                          aria-describedby={popoverId}
+                          onClick={handlePopoverClick}
+                          // onClick={() => {
+                          //   dispatch(logout());
+                          // }}
+                        >
+                          <Avatar
+                            alt='myAvatar'
+                            src={
+                              user.myAvatar
+                                ? user.myAvatar
+                                : '/uploads/default_user.jpg'
+                            }
+                            className={classes.myAvatar}
+                          />
+                          {/* <DirectionsRunIcon
                               className={classes.auth_button}
-                            />
-                          </IconButton>
-                        </Tooltip>
+                            /> */}
+                        </IconButton>
+                        {/* </Tooltip> */}
+                        <Popover
+                          id={popoverId}
+                          open={open}
+                          anchorEl={anchorEl}
+                          onClose={handlePopoverClose}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <List disablePadding className={classes.listDrawer}>
+                            <ListItem
+                              component={Link}
+                              href='/my-office'
+                              divider
+                              button
+                              className={classes.drawerItem}
+                            >
+                              <Grid
+                                container
+                                justify='flex-start'
+                                alignItems='center'
+                              >
+                                <Grid item>
+                                  <ListItemIcon
+                                    className={classes.drawerItem_wrapIcon}
+                                  >
+                                    <ExitToAppIcon
+                                      className={classes.drawerItem_icon}
+                                    />
+                                  </ListItemIcon>
+                                </Grid>
+                                <Grid item>
+                                  <ListItemText
+                                    disableTypography
+                                    className={classes.drawerItem_text}
+                                  >
+                                    Мой кабинет
+                                  </ListItemText>
+                                </Grid>
+                              </Grid>
+                            </ListItem>
+                            <ListItem
+                              divider
+                              button
+                              onClick={() => {
+                                dispatch(logout());
+                              }}
+                              className={classes.drawerItem}
+                            >
+                              <Grid
+                                container
+                                justify='flex-start'
+                                alignItems='center'
+                              >
+                                <Grid item>
+                                  <ListItemIcon
+                                    className={classes.drawerItem_wrapIcon}
+                                  >
+                                    <ExitToAppIcon
+                                      className={classes.drawerItem_icon}
+                                    />
+                                  </ListItemIcon>
+                                </Grid>
+                                <Grid item>
+                                  <ListItemText
+                                    disableTypography
+                                    className={classes.drawerItem_text}
+                                  >
+                                    Выход
+                                  </ListItemText>
+                                </Grid>
+                              </Grid>
+                            </ListItem>
+                          </List>
+                        </Popover>
                       </Grid>
                     )}
 

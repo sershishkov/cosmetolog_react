@@ -90,45 +90,59 @@ export const logout = () => async (dispatch) => {
 };
 
 //Update user details
-export const updateDetails = (name, email) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({ name, email });
+export const updateDetails =
+  (file, name, patronymic, lastName, telNumber, dateBirth, email, history) =>
+  async (dispatch) => {
+    const photoFormData = new FormData();
+    photoFormData.append('myAvatar', file);
+    photoFormData.append('name', name);
+    photoFormData.append('patronymic', patronymic);
+    photoFormData.append('lastName', lastName);
+    photoFormData.append('telNumber', telNumber);
+    photoFormData.append('dateBirth', dateBirth);
+    photoFormData.append('email', email);
 
-  try {
-    await axios.put('/api/auth/updatedetails', body, config);
-    dispatch(USER_AUTH__Actions.logout());
-    dispatch(setAlert('Обновление данных успешо', 'success'));
-  } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'error'));
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    try {
+      await axios.put('/api/auth/updatedetails', photoFormData, config);
+      dispatch(USER_AUTH__Actions.logout());
+      dispatch(setAlert('Обновление данных успешо', 'success'));
+      history.push('/login');
+      // window.reload();
+    } catch (err) {
+      const error = err.response.data.error;
+      if (error) {
+        dispatch(setAlert(error, 'error'));
+      }
     }
-  }
-};
+  };
 
 //Update user password
-export const updatePassword = (currentPassword, newPassword) => async (
-  dispatch
-) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({ currentPassword, newPassword });
+export const updatePassword =
+  (currentPassword, newPassword, history) => async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({ currentPassword, newPassword });
 
-  try {
-    await axios.put('/api/auth/updatepassword', body, config);
-    dispatch(USER_AUTH__Actions.logout());
-    dispatch(setAlert('Пароль обнавлен успешо', 'success'));
-  } catch (err) {
-    const error = err.response.data.error;
-    if (error) {
-      dispatch(setAlert(error, 'error'));
+    try {
+      await axios.put('/api/auth/updatepassword', body, config);
+      dispatch(USER_AUTH__Actions.logout());
+      dispatch(setAlert('Пароль обнавлен успешо', 'success'));
+      history.push('/login');
+      // window.reload();
+    } catch (err) {
+      const error = err.response.data.error;
+      if (error) {
+        dispatch(setAlert(error, 'error'));
+      }
     }
-  }
-};
+  };

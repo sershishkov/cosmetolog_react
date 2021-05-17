@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   myAvatar: {
     type: String,
     required: true,
-    default: './uploads/default_user.jpg',
+    default: '/uploads/default_user.jpg',
   },
   password: {
     type: String,
